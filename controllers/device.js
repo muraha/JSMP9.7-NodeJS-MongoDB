@@ -1,7 +1,5 @@
-const express = require('express').Router();
+const router = require('express').Router();
 let devices = require('../data/device');
-
-app.use(express.json());
 
 router.get('/', (req, res) => {
   res.json(devices);

@@ -4,8 +4,6 @@ import './App.css';
 import List from './List';
 import Form from './Form';
 
-
-
 class App extends Component {
   constructor(props) {
     super(props);

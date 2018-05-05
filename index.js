@@ -1,8 +1,12 @@
 const express = require('express');
 const app = express();
-const deviceRouter = require('./controllers/dedvice');
+const deviceRouter = require('./controllers/device');
+const mongoose = require('mongoose');
 
-  app.use(express.json());
+mongoose.connect('mongodb://localhost/jsmp97-nodejs-mongodb');
+
+
+app.use(express.json());
 app.use('/api/device', deviceRouter);
 
 app.get('/', (req, res) => {
@@ -12,4 +16,4 @@ app.get('/', (req, res) => {
 });
 
 
-app.listen(3002);
+app.listen(3001);
