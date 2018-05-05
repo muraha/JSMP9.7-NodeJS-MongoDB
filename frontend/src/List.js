@@ -11,7 +11,7 @@ class List extends Component {
 
     onUpdateStatus = async (id, isOn) => {
         await fetch('/api/device/' + id, {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'content-type': 'application/json'
               },
@@ -26,11 +26,11 @@ class List extends Component {
         let onBtnClassName, offBtnClassName;
 
         if (device.isOn) {
-            onBtnClassName = 'btn btn-outline-primary btn-success'
+            onBtnClassName = 'btn btn-primary'
             offBtnClassName = 'btn btn-outline-secondary';  
         } else {
             onBtnClassName = 'btn btn-outline-secondary'
-            offBtnClassName = 'btn btn-outline-primary btn-success';
+            offBtnClassName = 'btn btn-primary';
         }
 
            

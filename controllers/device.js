@@ -1,5 +1,7 @@
 const router = require('express').Router();
 // let devices = require('../data/device');
+var fetchUrl = require("fetch").fetchUrl;
+
 
 const Device = require('../models/device');
 
@@ -21,15 +23,24 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   const isOn = req.body.isOn;
   const id = req.params.id;
 
-  await Device.findByIdAndUpdate(id, {
-    isOn
-  }).exec();
+  const device = await Device.findById(id)
+  const command = '/cm?cmnd=' + (isOn ? 'Power On' : 'Power off')
 
-  res.sendStatus(201)
+  fetchUrl(device.address + command, async function(error, meta, body){
+    device.isOn = isOn,
+    await device.save()  
+    res.sendStatus(200)
+  });
+  
+  // await Device.findByIdAndUpdate(id, {
+  //   isOn
+  // }).exec();
+
+  // res.sendStatus(201)
 })
 
 router.post('/', async (req, res) => {
