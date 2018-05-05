@@ -1,0 +1,27 @@
+{
+  "name": "JSMP9.7-NodeJS-MongoDB",
+  "version": "1.0.0",
+  "description": "Edu project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --inspect index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muraha/JSMP9.7-NodeJS-MongoDB.git"
+  },
+  "keywords": [],
+  "author": "AK",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/muraha/JSMP9.7-NodeJS-MongoDB/issues"
+  },
+  "homepage": "https://github.com/muraha/JSMP9.7-NodeJS-MongoDB#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  }
+}
