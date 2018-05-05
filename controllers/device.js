@@ -1,21 +1,48 @@
 const router = require('express').Router();
-let devices = require('../data/device');
+// let devices = require('../data/device');
+
+const Device = require('../models/device');
 
 router.get('/', (req, res) => {
-  res.json(devices);
+  Device.find((err, docs) => {
+    if (err) {
+      res.sendStatus(500);
+      return;
+    }
+
+    const devices = docs.map(doc => ({
+      id: doc._id,
+      name: doc.name,
+      address: doc.address,
+      isOn: doc.isOn,
+    }))
+
+    res.json(devices);
+  });
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const device = req.body;
-  devices.push({ ...device })
-  res.send('Device was added')
+  // devices.push({ ...device
+  // }) //before mongo
+  await Device.create({
+    name: device.name,
+    address: device.address,
+    isOn: false,
+  });
+  res.sendStatus(201)
 });
 
-router.delete(`/:id`, (req, res) => {
+router.delete(`/:id`, async (req, res) => {
   const id = req.params.id;
-  console.log(id);
-  devices = devices.filter(device => device.id != id);
-  res.send('selected Device was deleted' + id)
+  try {
+    await Device.findByIdAndRemove(id).exec()
+    // devices = devices.filter(device => device.id != id); //before mongo
+    res.sendStatus(200)
+  } catch (e) {
+    res.sendStatus(500)
+  }
+ 
 })
 
 module.exports = router;
