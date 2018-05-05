@@ -13,7 +13,6 @@ class App extends Component {
     }
   }
 
-
   componentDidMount() {
     this.refreshDevices();
   }
@@ -31,8 +30,8 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <List devices={this.state.devices} onDelete={this.refreshDevices}/>
-       <Form onAdd={this.refreshDevices} /> 
+        <List devices={this.state.devices} onChange={this.refreshDevices}/>
+        <Form onChange={this.refreshDevices} /> 
       </div>
     );
   }

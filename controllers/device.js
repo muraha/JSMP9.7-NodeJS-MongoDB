@@ -21,10 +21,20 @@ router.get('/', (req, res) => {
   });
 });
 
+router.post('/:id', async (req, res) => {
+  const isOn = req.body.isOn;
+  const id = req.params.id;
+
+  await Device.findByIdAndUpdate(id, {
+    isOn
+  }).exec();
+
+  res.sendStatus(201)
+})
+
 router.post('/', async (req, res) => {
   const device = req.body;
-  // devices.push({ ...device
-  // }) //before mongo
+  // devices.push({ ...device }) //before mongo
   await Device.create({
     name: device.name,
     address: device.address,
@@ -42,7 +52,7 @@ router.delete(`/:id`, async (req, res) => {
   } catch (e) {
     res.sendStatus(500)
   }
- 
+
 })
 
 module.exports = router;

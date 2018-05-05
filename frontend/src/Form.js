@@ -7,7 +7,7 @@ class Form extends Component {
         this.state = {
             name: '',
             address: '',    
-        }
+        }   
     
         this.onNameChange = this.onChange.bind(this, 'name');
         this.onAddressChange = this.onChange.bind(this, 'address');
@@ -31,16 +31,15 @@ class Form extends Component {
             name: devName,
             address: devAddress 
         }
-        // Default options are marked with *
         return fetch('/api/device', {
-          body: JSON.stringify(device), // must match 'Content-Type' header
+          body: JSON.stringify(device),
           headers: {
             'content-type': 'application/json'
           },
-          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          method: 'POST',
         })
             .then(response => response) // parses response to JSON
-            .then(this.props.onAdd)
+            .then(this.props.onChange)
       }
 
     render() {

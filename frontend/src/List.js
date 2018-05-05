@@ -6,12 +6,34 @@ class List extends Component {
         await fetch('/api/device/' + id, {
             method: 'DELETE'
         })
-        .then(this.props.onDelete)
+        .then(this.props.onChange)
+    }
+
+    onUpdateStatus = async (id, isOn) => {
+        await fetch('/api/device/' + id, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+              },
+            body: JSON.stringify({isOn})
+        }) 
+        .then(this.props.onChange)
     }
 
     renderDevice(index) {
         const device = this.props.devices[index];
 
+        let onBtnClassName, offBtnClassName;
+
+        if (device.isOn) {
+            onBtnClassName = 'btn btn-outline-primary btn-success'
+            offBtnClassName = 'btn btn-outline-secondary';  
+        } else {
+            onBtnClassName = 'btn btn-outline-secondary'
+            offBtnClassName = 'btn btn-outline-primary btn-success';
+        }
+
+           
         return (
             <tr>
                 <th scope="row">{device.id}</th>
@@ -20,8 +42,8 @@ class List extends Component {
                 <td>
                     <div class="btn-toolbar float-right" role="toolbar">
                         <div className="btn-group mr-2" role="group">
-                            <button type="button" className="btn btn-outline-secondary">On</button>
-                            <button type="button" className="btn btn-outline-secondary">Off</button>
+                            <button onClick={this.onUpdateStatus.bind(this, device.id, true)} type="button" className={onBtnClassName}>On</button>
+                            <button onClick={this.onUpdateStatus.bind(this, device.id, false)} type="button" className={offBtnClassName}>Off</button>
                         </div>
                         <div class="btn-group" role="group">
                             <button onClick={this.onDeleteDevice.bind(this, device.id)} type="button" className="btn btn-outline-warning">Delete</button>
